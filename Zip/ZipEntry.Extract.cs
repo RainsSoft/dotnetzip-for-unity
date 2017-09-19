@@ -857,7 +857,12 @@ namespace Ionic.Zip
                     // workitem 7926 - version made by OS can be zero (FAT) or 10
                     // (NTFS)
                     if ((_VersionMadeBy & 0xFF00) == 0x0a00 || (_VersionMadeBy & 0xFF00) == 0x0000)
-                        File.SetAttributes(targetFileName, (FileAttributes)_ExternalFileAttrs);
+                        {
+                        var currFileAttr = File.GetAttributes( targetFileName );
+                        var newFileAttr = (FileAttributes)_ExternalFileAttrs;
+                        if( currFileAttr != newFileAttr && (currFileAttr & FileAttributes.ReadOnly) != 0 )
+                           File.SetAttributes(targetFileName, newFileAttr);
+                    }
 #endif
                 }
 
