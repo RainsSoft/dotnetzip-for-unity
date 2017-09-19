@@ -766,8 +766,9 @@ namespace Ionic.Zip
                             checkLaterForResetDirTimes = _container.ZipFile._inExtractAll;
                     }
 
-                    // File.Create(CreateNew) will overwrite any existing file.
-                    output = new FileStream(targetFileName, FileMode.CreateNew);
+                     // File.Create(Create) will overwrite any existing file.
+                     //output = new FileStream(targetFileName, FileMode.CreateNew);
+                    output = new FileStream(targetFileName, FileMode.Create);
                 }
                 else
                 {
